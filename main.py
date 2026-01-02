@@ -1,11 +1,18 @@
+from contextlib import asynccontextmanager
 from typing import Optional
 from fastapi import FastAPI
 from pydantic import BaseModel, Field
 from sqlalchemy import select
+from db import Base, engine, Libros, SessionLocal
 
-from db import Libros, SessionLocal
 
-app = FastAPI()
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    Base.metadata.create_all(bind=engine)
+    yield
+
+
+app = FastAPI(lifespan=lifespan)
 
 
 class LibroCreate(BaseModel):
