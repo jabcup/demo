@@ -3,7 +3,7 @@ from typing import Optional
 from fastapi import FastAPI
 from pydantic import BaseModel, Field
 from sqlalchemy import select
-from db import Base, engine, Libros, SessionLocal
+from database import Base, engine, Libros, SessionLocal
 
 
 @asynccontextmanager
